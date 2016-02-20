@@ -2,23 +2,18 @@
 using namespace std;
 
 
-long long PowerN(const long long number, const unsigned& n, const long long& base)
+long long PowerN(const long long& number, const unsigned& n)
 {
 	if (n == 0)
 		return 1;
 	if (n == 1)
 		return number;
-	if (n == 2)
-		return number*number;
-	if (n % 2 == 0)
-		return PowerN(PowerN(number, n / 2, base),2,base);
-	if (n % 2 == 1)
-		return PowerN(PowerN(number, (n-1) / 2, base), 2,base)*base;
-}
+	long long result = PowerN(number, n >> 1);
+	result *= result;
+	if (( n & 0x1u) == 1u)
+		result *= number;
 
-long long PowerN(const long long number, const unsigned& n)
-{
-	return PowerN(number, n, number);
+	return result;
 }
 int main()
 {
